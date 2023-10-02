@@ -2,3 +2,7 @@
     background-color: black;
 
 }
+.managescroll::-webkit-scrollbar{
+    display: none;
+
+}
