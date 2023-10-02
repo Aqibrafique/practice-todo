@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import {CiEdit} from 'react-icons/ci'
+import {MdDownloadDone} from 'react-icons/md'
+import {AiFillDelete} from 'react-icons/ai'
+import {BiRevision} from 'react-icons/bi'
 
-function DisplayAdd(props) {
+
+
+function DisplayAdd({todoList, setTodoList, todoid, todo, Status}) {
+  const [edit, setEdit] = useState(false);
+  const [update, setUpdate] = useState(todo);
   const handleComplete = (id) => {
-    props.setTodoList(
-      props.todoList.map((e) =>
+    setTodoList(
+      todoList.map((e) =>
         e.id === id ? { ...e, Status: "completed" } : e
       )
     );
   };
   const handleDelete = (id, Status) => {
     if (Status === "deleted") {
-      props.setTodoList(props.todoList.filter((e) => e.id !== id));
+      setTodoList(todoList.filter((e) => e.id !== id));
 
       console.log("if" + Status);
     } else {
-      props.setTodoList(
-        props.todoList.map((e) =>
+      setTodoList(
+        todoList.map((e) =>
           e.id === id ? { ...e, Status: "deleted" } : e
         )
       );
@@ -23,18 +31,31 @@ function DisplayAdd(props) {
     }
   };
   const handleReverse = (id) => {
-    props.setTodoList(
-      props.todoList.map((e) => (e.id === id ? { ...e, Status: "add" } : e))
+    setTodoList(
+      todoList.map((e) => (e.id === id ? { ...e, Status: "add" } : e))
     );
   };
+//  const handleEdit = (id) => {
 
+//   edit===true? setEdit(false) : setEdit(true)
+// console.log(edit)
+//  }
+ const editFalse = (e, todoid) => {
+  
+  setTodoList(
+    todoList.map((e)=> e.id===todoid? {...e, todo: update}: e)
+  )
+  setEdit(false);
+  e.preventDefault();
+ }
   return (
     <div>
+      <form onSubmit={(e) => editFalse(e, todoid)}>
       <div
         style={{
-          border: "solid 1px blue",
+          border: "solid 2px #233D4D",
           height: "40px",
-          width: "100%",
+          width: "98%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -45,26 +66,58 @@ function DisplayAdd(props) {
       >
         <div
           style={{
-            border: "solid 1px red",
+            border: "solid 0px red",
             height: "40px",
-            width: "80%",
+            width: "75%",
             overflow: "auto",
+            display: "flex",
+          
+          alignItems: "center",
           }}
         >
-          {props.todo}
+        {edit? (
+        
+        <input
+              style={{
+                height: "25px",
+                width: "90%",
+                border: "none",
+                overflow: "hidden",
+                borderRadius: "10px",
+              }}
+              autoFocus
+              type="text"
+              value={update}
+              onChange={(e) => setUpdate(e.target.value)}
+              
+            />
+            ):
+            (todo)
+            
+            }
         </div>
-        <div style={{ border: "solid 1px red", height: "40px", width: "20%" }}>
-          {props.Status === "completed" ? (
-            <button onClick={() => handleReverse(props.todoid)}>r</button>
-          ) : (
-            <button onClick={() => handleComplete(props.todoid)}>c</button>
-          )}
-
-          <button onClick={() => handleDelete(props.todoid, props.Status)}>
-            d
-          </button>
+        <div style={{ border: "solid 0px red", height: "40px", width: "25%", display:"flex", justifyContent:"space-around", alignItems:"center" }}>
+        {Status === "add" && 
+        <>
+            <span  onClick={() => {
+              if (!edit) {
+                setEdit(!edit);
+              }
+            }}><CiEdit/></span>
+            <span onClick={() => handleComplete(todoid)}><MdDownloadDone/></span>
+            </>
+          }
+          {Status === "completed" && (
+            <span onClick={() => handleReverse(todoid)}><BiRevision/></span>
+            
+          ) 
+          }
+          <span onClick={() => handleDelete(todoid, Status)}>
+            <AiFillDelete/>
+          </span>
         </div>
       </div>
+      </form>
     </div>
   );
 }
