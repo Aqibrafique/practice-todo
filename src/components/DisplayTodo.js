@@ -1,9 +1,16 @@
 import React from "react";
 import DisplayAdd from "./DisplayAdd";
 import Style from "./Style.module.css";
+import { Link, useNavigate } from 'react-router-dom'
 const DisplayTodo = (props) => {
   console.log("display" + props.todoList.length);
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  }
   return (
+    <>
+    <button style={{marginLeft:"10px", height:"35px", width:"125px",marginTop:"10px", backgroundColor:"yellow", color:"red",fontSize:"15px", borderRadius:"25px", border:"none",  }} onClick={goBack}>Back </button>
     <div
       style={{
         border: "solid 0px red",
@@ -204,7 +211,9 @@ const DisplayTodo = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
+  
 };
 
 export default DisplayTodo;

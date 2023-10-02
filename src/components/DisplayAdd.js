@@ -35,11 +35,6 @@ function DisplayAdd({todoList, setTodoList, todoid, todo, Status}) {
       todoList.map((e) => (e.id === id ? { ...e, Status: "add" } : e))
     );
   };
-//  const handleEdit = (id) => {
-
-//   edit===true? setEdit(false) : setEdit(true)
-// console.log(edit)
-//  }
  const editFalse = (e, todoid) => {
   
   setTodoList(
