@@ -38,12 +38,21 @@ function App() {
   useEffect(() => {
     localStorage.setItem("todoitems", JSON.stringify(todoList));
   }, [todoList]);
+const HandleSubmit = ( e) => {
+  e.preventDefault()
+  var today = new Date(),
+  date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  var newdata = {...adduser, Date:date, ID: new Date().getTime().toString() }
+  setUserlist([...userlist,newdata])
+  console.log(userlist)
+  setAdduser({username:"",usercity:"",userage:""})
 
+}
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Add />} />
+          <Route index element={<Add userlist={userlist} />} />
 
           <Route
             path="addtask"
@@ -71,7 +80,7 @@ function App() {
           <Route path="*" element={<Add />} />
           <Route
             path="/adduser"
-            element={<Adduser adduser={adduser} setAdduser={setAdduser} />}
+            element={<Adduser adduser={adduser} userlist={userlist} setAdduser={setAdduser}  HandleSubmit={HandleSubmit}/>}
           />
         </Routes>
       </BrowserRouter>
