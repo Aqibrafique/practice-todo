@@ -48,28 +48,34 @@ function Displayuser({userlist}) {
       </button>
       </div>
    </div>
+   <div style={{width:"100%",textAlign:"center", height:"60px", border:"solid 0px red"}}>
+    <p style={{fontSize:"40px",fontFamily:"cursive",color:"yellow", margin:"0px", padding:"0px"}}>All Users</p>
+   </div>
 
    <div style={{border: "solid 0px", height:"100vh", width:"100%", display:"flex", flexWrap:"wrap"}}>
       {
       userlist.map((e)=>{
-        const uname = `Username:   ${e.username}`
+        const uname = `${e.username}`
+        const ucity = `User City:   ${e.usercity}`
+        const uage = `User Age:      ${e.userage}`
+        const Date = `Date:      ${e.Date}`
         return(
 
         <div style={{border:"solid 3px yellow" , width:"300px", margin:"20px", height:"330px", borderRadius:"20px" }}>
         <div  className={Style.card}>
           
-          <div style={{border:"solid 0px red" , width:"190px", margin:"0px", height:"150px",marginLeft:"50px",display:"flex"}}>
-          <img src={e.Image} alt="Avatar" style={{width:"100%", height:"150px", marginLeft:"0px"}}/>
+          <div style={{border:"solid 0px red" , width:"190px", height:"150px",marginLeft:"50px"}}>
+          <img src={e.Image} alt="Avatar" style={{width:"100%", height:"150px", margin:"10px 0px 0px 50px", borderRadius:"20px"}}/>
           
           
           </div>
 
           
   <div  className={Style.container}>
-    <h4><b>{uname}</b></h4> 
-    <p>{e.usercity}</p>
-    <p>{e.userage} </p> 
-    <p>{e.Date}</p>
+    <p ><b style={{color:"yellow"}}>User Name: </b>{e.username}</p> 
+    <p><b style={{color:"yellow"}}>User City: </b>{e.usercity}</p>
+    <p><b style={{color:"yellow"}}>User Age: </b>{e.userage}</p>  
+    <p><b style={{color:"yellow"}}>Date: </b>{e.Date}</p> 
   </div>
 </div>
 </div>

@@ -11,22 +11,17 @@ function Adduser({
   image,
   setImage,
 }) {
-  // const [image, setImage] = useState("")
   const imageRef = useRef(null);
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
   const handleChange = (event) => {
-    // const { name, value } = event.target;
     const name = event.target.name;
     const value = event.target.value;
     setAdduser({ ...adduser, [name]: value });
-    //  console.log(name,value)
   };
-  // const handleImage = () => {
-  //   imageRef.current.click();
-  // }
+ 
   const imageChange = (e) => {
     const file = e.target.files[0];
     const url = URL.createObjectURL(file);
@@ -54,19 +49,20 @@ function Adduser({
       <div
         style={{
           width: "100%",
-          height: "300px",
-          border: "solid 1px green",
+          height: "100vh",
+          border: "solid 0px green",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
           flexWrap: "wrap",
         }}
       >
         <div
           style={{
             width: "50%",
-            height: "300px",
-            border: "solid 2px ",
+            height: "500px",
+            border: "solid 0px ",
+            // backgroundColor:"red"
           }}
         >
           <form
@@ -79,44 +75,47 @@ function Adduser({
               flexDirection: "column",
             }}
           >
-            <label style={{ margin: "5px" }}>
+            <label style={{ margin: "20px",color:"yellow"}}>
               Enter Your name:
               <input
                 type="text"
                 value={adduser.username}
                 name="username"
                 onChange={handleChange}
+                style={{marginLeft:"50px", width:"200px", height:"30px", backgroundColor:"#126FAD", border:"solid 3px yellow", borderRadius:"15px"}}
               />
             </label>
-            <label style={{ margin: "5px" }}>
+            <label style={{ margin: "20px",color:"yellow" }}>
               Enter Your City:
               <input
                 type="text"
                 value={adduser.usercity}
                 name="usercity"
                 onChange={handleChange}
+                style={{marginLeft:"50px", width:"200px", height:"30px", backgroundColor:"#126FAD", border:"solid 3px yellow", borderRadius:"15px"}}
               />
             </label>
-            <label style={{ margin: "5px" }}>
-              Select Your Age
+            <label style={{ margin: "20px", color:"yellow" }}>
+              Select Your Age:
               <input
                 type="text"
                 value={adduser.userage}
                 name="userage"
                 onChange={handleChange}
+                style={{marginLeft:"50px", width:"200px", height:"30px", backgroundColor:"#126FAD", border:"solid 3px yellow", borderRadius:"15px"}}
               />
             </label>
-            <label style={{ margin: "5px" }}>
+            <label style={{ margin: "20px", display:"flex", alignItems:"center",color:"yellow" }}>
               Upload Image
               {image ? (
                 <img
-                  style={{ width: "50px", height: "50px", marginLeft: "100px" }}
+                  style={{ width: "120px", height: "120px", marginLeft: "50px", border:"solid 1px yellow", borderRadius:"60px" }}
                   src={image}
                   alt="some errors"
                 />
               ) : (
                 <img
-                  style={{ width: "50px", height: "50px", marginLeft: "100px" }}
+                  style={{ width: "120px", height: "120px", marginLeft: "50px",color:"yellow" }}
                   src={userimage}
                   alt="some errors"
                 />

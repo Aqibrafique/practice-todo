@@ -3,7 +3,7 @@ import "./App.css";
 import AddTask from "./components/AddTask";
 import DisplayTodo from "./components/DisplayTodo";
 import Add from "./components/pages/Add";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 // import Adduser from "./components/pages/Adduser";
 import Adduser from "./components/pages/Adduser";
 import Displayuser from "./components/pages/Displayuser";
@@ -57,7 +57,7 @@ function App() {
     localStorage.setItem("Users", JSON.stringify(userlist));
   }, [userlist]);
 
-  console.log(userlist);
+
 
   const HandleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +77,7 @@ function App() {
     setUserlist([...userlist, newdata]);
     console.log(userlist);
     setAdduser({ username: "", usercity: "", userage: "" });
-    setImage("");
+    setImage("");    
   };
 
   console.log(image);
@@ -111,19 +111,7 @@ function App() {
             }
           />
           <Route path="*" element={<Add />} />
-          {/* <Route
-            path="/adduser"
-            element={
-              <Adduser
-                adduser={adduser}
-                userlist={userlist}
-                setAdduser={setAdduser}
-                HandleSubmit={HandleSubmit}
-                image={image}
-                setImage={setImage}
-              />
-            }
-          /> */}
+    
           <Route
             path="displayuser"
             element={<Displayuser userlist={userlist} />}
@@ -141,7 +129,6 @@ function App() {
                 />
               }
             />
-          {/* </Route> */}
         </Routes>
       </BrowserRouter>
     </div>
