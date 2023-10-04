@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 
 
 function AddTask(props) {
- const [search, setSearch] = useState(false)
+ const [search, setSearch] = useState(false);
+ const Navigate = useNavigate();
 
  const navigate = useNavigate();
  const goBack = () => {
@@ -30,14 +31,14 @@ function AddTask(props) {
             )
 }
     </div>
-    <div style={{width:"100%", height:"50px", border: "solid 0px red", display:"flex", justifyContent:"center" }}>
+    {/* <div style={{width:"100%", height:"50px", border: "solid 0px red", display:"flex", justifyContent:"center" }}>
       <div style={{width:"50%", height:"40px", border:"solid 0px green", display:"flex", justifyContent:"center"}}>
-      <button style={{marginLeft:"10px", height:"35px", width:"125px",marginTop:"10px", backgroundColor:"yellow", color:"red",fontSize:"15px", borderRadius:"25px", border:"none" }}  onClick={()=>setSearch(true) }>Search Tasks</button>
+      <button style={{marginLeft:"10px", height:"35px", width:"125px",marginTop:"10px", backgroundColor:"yellow", color:"red",fontSize:"15px", borderRadius:"25px", border:"none" }} onClick={()=>setSearch(true) }>Search Tasks</button>
             <button style={{marginLeft:"10px", height:"35px", width:"125px",marginTop:"10px", backgroundColor:"yellow", color:"red",fontSize:"15px", borderRadius:"25px", border:"none" }} onClick={()=>setSearch(false) }>Add Tasks</button>
            
       </div>
     
-    </div>
+    </div> */}
 
     </>
   )

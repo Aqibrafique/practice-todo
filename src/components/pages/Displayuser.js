@@ -1,7 +1,20 @@
-import React from 'react'
+import {React, useState} from 'react'
 import Style from '../Style.module.css'
-import { Link, Outlet } from 'react-router-dom'
-function Displayuser({userlist}) {
+import { Link, Outlet, useNavigate } from 'react-router-dom'
+const getusers = () => {
+  let list = localStorage.getItem("Users");
+  if (list) {
+    return JSON.parse(localStorage.getItem("Users"));
+  } else {
+    return [];
+  }
+};
+function Displayuser() {
+  const [userlist, setUserlist] = useState(getusers());
+  const Navigate = useNavigate();
+  const goBack = () => {
+    Navigate(-1)
+  }
   return (
    <>
    <div style={{width:"100%", height:"80px", border:"0px solid",display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -21,6 +34,7 @@ function Displayuser({userlist}) {
           cursor:"pointer",
           alignItems:"center",
         }}
+        onClick={goBack}
        
       >
         Back
@@ -41,10 +55,11 @@ function Displayuser({userlist}) {
           justifyContent:"center",
           cursor:"pointer",
           alignItems:"center",
+         
         }}
        
       >
-        <Link to="adduser"> Add User</Link>
+        <Link to="adduser" style={{ textDecoration: 'none'}}> Add User</Link>
       </button>
       </div>
    </div>
@@ -52,20 +67,16 @@ function Displayuser({userlist}) {
     <p style={{fontSize:"40px",fontFamily:"cursive",color:"yellow", margin:"0px", padding:"0px"}}>All Users</p>
    </div>
 
-   <div style={{border: "solid 0px", height:"100vh", width:"100%", display:"flex", flexWrap:"wrap"}}>
+   <div style={{border: "solid 0px", height:"100%", width:"100%", display:"flex", flexWrap:"wrap", overflow:"hidden"}}>
       {
       userlist.map((e)=>{
-        const uname = `${e.username}`
-        const ucity = `User City:   ${e.usercity}`
-        const uage = `User Age:      ${e.userage}`
-        const Date = `Date:      ${e.Date}`
         return(
 
-        <div style={{border:"solid 3px yellow" , width:"300px", margin:"20px", height:"330px", borderRadius:"20px" }}>
+        <div style={{border:"solid 3px yellow" , width:"300px", margin:"20px", height:"330px", borderRadius:"20px",overflow:"hidden" }}>
         <div  className={Style.card}>
           
-          <div style={{border:"solid 0px red" , width:"190px", height:"150px",marginLeft:"50px"}}>
-          <img src={e.Image} alt="Avatar" style={{width:"100%", height:"150px", margin:"10px 0px 0px 50px", borderRadius:"20px"}}/>
+          <div style={{border:"solid 0px red" , width:"190px", height:"150px",marginLeft:"50px",objectFit:"contain"}}>
+          <img src={e.Image} alt="Avatar" style={{width:"100%",objectFit:"contain", height:"150px", margin:"10px 0px 0px 0px", borderRadius:"20px"}}/>
           
           
           </div>

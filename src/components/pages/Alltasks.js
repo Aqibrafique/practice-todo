@@ -1,35 +1,83 @@
-import React from "react";
-import DisplayAdd from "./DisplayAdd";
-import Style from "./Style.module.css";
-import { Link, useNavigate } from 'react-router-dom'
-const DisplayTodo = (props) => {
-  console.log("display" + props.todoList.length);
-  const navigate = useNavigate();
-  // const goBack = () => {
-  //   navigate(-1);
-  // }
+import React from 'react'
+import DisplayAdd from "../DisplayAdd"
+import Style from "../Style.module.css";
+import { useNavigate, Link } from 'react-router-dom'
+
+function Alltasks(props) {
+    const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);}
   return (
     <>
-    {/* <button style={{marginLeft:"10px", height:"35px", width:"125px",marginTop:"10px", backgroundColor:"yellow", color:"red",fontSize:"15px", borderRadius:"25px", border:"none",  }} onClick={goBack}>Back </button> */}
+     <div style={{width:"100%", height:"80px", border:"0px solid",display:"flex",justifyContent:"center",alignItems:"center"}}>
+   <div style={{width:"45%", height:"50px", border:"0px solid",display:"flex",justifyContent:"left",alignItems:"center"}}>
+   <button
+        style={{
+          marginLeft: "10px",
+          height: "35px",
+          width: "125px",
+          marginTop: "10px",
+          backgroundColor: "yellow",
+          color: "red",
+          fontSize: "15px",
+          borderRadius: "25px",
+          border: "none",
+          justifyContent:"center",
+          cursor:"pointer",
+          alignItems:"center",
+        }}
+        onClick={goBack}
+       
+      >
+        Back
+      </button>
+      </div>
+      <div style={{width:"45%", height:"50px", border:"0px solid",display:"flex",justifyContent:"right",alignItems:"center"}}>
+   <button
+        style={{
+          marginLeft: "10px",
+          height: "35px",
+          width: "125px",
+          marginTop: "10px",
+          backgroundColor: "yellow",
+          color: "red",
+          fontSize: "15px",
+          borderRadius: "25px",
+          border: "none",
+          justifyContent:"center",
+          cursor:"pointer",
+          alignItems:"center",
+         
+        }}
+       
+      >
+        <Link to="addtask" style={{ textDecoration: 'none'}}> Add Task</Link>
+      </button>
+      </div>
+   </div>
+    <div style={{border:"solid 0px blue", width:"100%", height:"80px", fontSize:"50px", color:"yellow", textAlign:"center",fontFamily: "cursive",backgroundColor: "#3D3D3D" }}>
+        Todo App
+        </div>
     <div
       style={{
         border: "solid 0px red",
-        height: "400px",
+        height: "80vh",
         width: "100%",
         display: "flex",
         justifyContent: "space-around",
-        alignItems: "center",
+        alignItems: "flex-start",
         flexWrap: "wrap",
       }}
     >
+        
       <div
         style={{
           marginTop: "30px",
           border: "solid 3px yellow",
           backgroundColor: "#3D3D3D",
           borderRadius: "25px",
-          height: "300px",
-          width: "350px",
+          height: "400px",
+          width: "450px",
           overflow: "auto",
           display: "flex",
           justifyContent: "center",
@@ -47,8 +95,8 @@ const DisplayTodo = (props) => {
         >
           <div
             style={{
-              marginTop: "10px",
-              border: "solid 0px red",
+              marginTop: "0px",
+              border: "solid px red",
               height: "45px",
               width: "99%",
               display: "flex",
@@ -64,15 +112,15 @@ const DisplayTodo = (props) => {
             All Tasks
           </div>
           {props.todoList
-            .filter((e) => {
-              if (props.search && e.Status === "add") {
-                return e.todo
-                  .toLowerCase()
-                  .includes(props.search.toLowerCase());
-              } else if (e.Status === "add") {
-                return e;
-              }
-            })
+            // .filter((e) => {
+            //   if (props.search && e.Status === "add") {
+            //     return e.todo
+            //       .toLowerCase()
+            //       .includes(props.search.toLowerCase());
+            //   } else if (e.Status === "add") {
+            //     return e;
+            //   }
+            // })
             .map((e) => (
               <DisplayAdd
                 todoList={props.todoList}
@@ -84,7 +132,7 @@ const DisplayTodo = (props) => {
             ))}
         </div>
       </div>
-      <div
+      {/* <div
         style={{
           marginTop: "30px",
           border: "solid 3px yellow",
@@ -145,8 +193,8 @@ const DisplayTodo = (props) => {
               />
             ))}
         </div>
-      </div>
-      <div
+      </div> */}
+      {/* <div
         style={{
           border: "solid 3px yellow",
           backgroundColor: "#FE7F2D",
@@ -209,11 +257,10 @@ const DisplayTodo = (props) => {
               />
             ))}
         </div>
-      </div>
+      </div> */}
     </div>
     </>
-  );
-  
-};
+  )
+}
 
-export default DisplayTodo;
+export default Alltasks

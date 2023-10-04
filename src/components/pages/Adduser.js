@@ -1,24 +1,79 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userimage from "../images/images.png";
 import Style from "../Style.module.css";
+import ValidateForm from "../ValidateForm";
+// adduser,setAdduser,HandleSubmit,userlist,image,setImage,
+const getusers = () => {
+  let list = localStorage.getItem("Users");
+  if (list) {
+    return JSON.parse(localStorage.getItem("Users"));
+  } else {
+    return [];
+  }
+};
+function Adduser()
+{
 
-function Adduser({
-  adduser,
-  setAdduser,
-  HandleSubmit,
-  userlist,
-  image,
-  setImage,
-}) {
-  const imageRef = useRef(null);
+  const [adduser, setAdduser] = useState({
+    username: "",
+    usercity: "",
+    userage: "",
+  });
+  const [image, setImage] = useState("");
+  const [userlist, setUserlist] = useState(getusers());
+  const [errors, setErrors] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("Users", JSON.stringify(userlist));
+  }, [userlist]);
+
+// const navigate = useNavigate();
+  const HandleSubmit = (e) => {
+    e.preventDefault();
+    var today = new Date(),
+      date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+    var newdata = {
+      ...adduser,
+      Date: date,
+      ID: new Date().getTime().toString(),
+      Image: image,
+    };
+    const err = ValidateForm(newdata)
+  if(err && Object.keys(err)?.length!==0)
+    {
+      setErrors(err);
+      console.log("hello")
+      return
+    }
+    setUserlist([...userlist, newdata]);
+    // window.location.href = "/displayuser"
+    // setErrors(ValidateForm(newdata));
+    
+    console.log(newdata);
+    setAdduser({ username: "", usercity: "", userage: "" });
+    
+    setImage("");    
+    navigate("../displayuser")
+  };
+
+
+
+  
   const navigate = useNavigate();
+ 
   const goBack = () => {
     navigate(-1);
   };
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    setErrors({...errors, [name]:""})
     setAdduser({ ...adduser, [name]: value });
   };
  
@@ -41,6 +96,7 @@ function Adduser({
           fontSize: "15px",
           borderRadius: "25px",
           border: "none",
+          cursor:"pointer"
         }}
         onClick={goBack}
       >
@@ -84,6 +140,7 @@ function Adduser({
                 onChange={handleChange}
                 style={{marginLeft:"50px", width:"200px", height:"30px", backgroundColor:"#126FAD", border:"solid 3px yellow", borderRadius:"15px"}}
               />
+              {errors.username && <p style={{color:"red", marginLeft:"200px", marginTop:"0px"}}>{errors.username}</p>}
             </label>
             <label style={{ margin: "20px",color:"yellow" }}>
               Enter Your City:
@@ -94,6 +151,7 @@ function Adduser({
                 onChange={handleChange}
                 style={{marginLeft:"50px", width:"200px", height:"30px", backgroundColor:"#126FAD", border:"solid 3px yellow", borderRadius:"15px"}}
               />
+              {errors.usercity && <p style={{color:"red", marginLeft:"200px", marginTop:"0px"}}>{errors.usercity}</p>}
             </label>
             <label style={{ margin: "20px", color:"yellow" }}>
               Select Your Age:
@@ -104,29 +162,35 @@ function Adduser({
                 onChange={handleChange}
                 style={{marginLeft:"50px", width:"200px", height:"30px", backgroundColor:"#126FAD", border:"solid 3px yellow", borderRadius:"15px"}}
               />
+              {errors.userage && <p style={{color:"red", font:"5px", marginLeft:"200px", marginTop:"0px"}}>{errors.userage}</p>}
             </label>
             <label style={{ margin: "20px", display:"flex", alignItems:"center",color:"yellow" }}>
               Upload Image
               {image ? (
                 <img
-                  style={{ width: "120px", height: "120px", marginLeft: "50px", border:"solid 1px yellow", borderRadius:"60px" }}
+                  style={{ width: "120px", height: "120px", marginLeft: "50px",objectFit:"contain", border:"solid 1px yellow", borderRadius:"60px" }}
                   src={image}
                   alt="some errors"
                 />
+                
               ) : (
                 <img
-                  style={{ width: "120px", height: "120px", marginLeft: "50px",color:"yellow" }}
+                  style={{ width: "120px", height: "120px", marginLeft: "50px",color:"yellow",objectFit:"contain" }}
                   src={userimage}
                   alt="some errors"
                 />
-              )}
+                
+              )
+              }
               <input
                 type="file"
                 name="userimage"
                 onChange={imageChange}
                 style={{ display: "none" }}
               />
+              
             </label>
+            <div style={{margin:"0px"}}>{errors.Image && <p style={{color:"red", marginLeft:"0px", marginTop:"0px"}}>{errors.Image}</p>}</div>
             <button
               style={{
                 marginLeft: "10px",
@@ -138,6 +202,7 @@ function Adduser({
                 fontSize: "15px",
                 borderRadius: "25px",
                 border: "none",
+                cursor:"pointer"
               }}
               type="submit"
             >

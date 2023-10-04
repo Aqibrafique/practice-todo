@@ -3,10 +3,12 @@ import "./App.css";
 import AddTask from "./components/AddTask";
 import DisplayTodo from "./components/DisplayTodo";
 import Add from "./components/pages/Add";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import Alltasks from "./components/pages/Alltasks";
+import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 // import Adduser from "./components/pages/Adduser";
 import Adduser from "./components/pages/Adduser";
 import Displayuser from "./components/pages/Displayuser";
+import SearchTask from "./components/pages/SearchTask";
 
 const getitems = () => {
   let list = localStorage.getItem("todoitems");
@@ -26,6 +28,7 @@ const getusers = () => {
   }
 };
 
+
 function App() {
   const [search, setSearch] = useState("");
   const [todo, setTodo] = useState("");
@@ -37,15 +40,18 @@ function App() {
   });
   const [userlist, setUserlist] = useState(getusers());
   const [image, setImage] = useState("");
+  // const navigate = useNavigate();
   const AddTodo = (e) => {
     const task = {
       id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
       todo: todo,
       Status: "add",
+
     };
     if (todo) {
       setTodoList([...todoList, task]);
       setTodo("");
+// navigate("alltasks")
     }
     e.preventDefault();
   };
@@ -58,7 +64,8 @@ function App() {
   }, [userlist]);
 
 
-
+// const navigate = useNavigate();
+  
   const HandleSubmit = (e) => {
     e.preventDefault();
     var today = new Date(),
@@ -75,9 +82,11 @@ function App() {
       Image: image,
     };
     setUserlist([...userlist, newdata]);
+    // window.location.href = "/displayuser"
     console.log(userlist);
     setAdduser({ username: "", usercity: "", userage: "" });
     setImage("");    
+    // navigate("displayuser")
   };
 
   console.log(image);
@@ -86,9 +95,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Add userlist={userlist} />} />
+          <Route path="alltasks/addtask/searchtask" element={<SearchTask />} />
 
           <Route
-            path="addtask"
+            path="alltasks/addtask"
             element={
               <AddTask
                 todo={todo}
@@ -100,9 +110,20 @@ function App() {
             }
           />
           <Route
-            path="/viewtask"
+            path="viewtask"
             element={
               <DisplayTodo
+                todoList={todoList}
+                setTodoList={setTodoList}
+                search={search}
+                setSearch={setSearch}
+              />
+            }
+          />
+           <Route
+            path="alltasks"
+            element={
+              <Alltasks
                 todoList={todoList}
                 setTodoList={setTodoList}
                 search={search}
@@ -132,21 +153,6 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
-    // <div className="App">
-    //   <AddTask
-    //     todo={todo}
-    //     setTodo={setTodo}
-    //     AddTodo={AddTodo}
-    //     search={search}
-    //     setSearch={setSearch}
-    //   />
-    //   <DisplayTodo
-    //     todoList={todoList}
-    //     setTodoList={setTodoList}
-    //     search={search}
-    //     setSearch={setSearch}
-    //   />
-    // </div>
   );
 }
 
