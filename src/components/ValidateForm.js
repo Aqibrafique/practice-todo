@@ -1,10 +1,11 @@
 function ValidateForm(adduser) {
   let errors = {};
-  const name_validation = /^[a-zA-Z]+$/;
+  // const name_validation = /^[a-zA-Z]+$/;
+  const name_validation = "^[A-Za-z]\\w{5,29}$";
   const number_validation = /^[0-9]+$/;
-  if (!adduser?.username) {
+  if (!adduser.username) {
     errors.username = "Name is Required!";
-  } else if (!name_validation.test(adduser?.username)) {
+  } else if (name_validation.test(adduser.username)) {
     errors.username = "Name is Not Valid";
   }
   if (adduser?.usercity === "") {

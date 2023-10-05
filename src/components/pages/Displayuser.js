@@ -13,10 +13,14 @@ function Displayuser() {
   const [userlist, setUserlist] = useState(getusers());
   const Navigate = useNavigate();
   const goBack = () => {
-    Navigate(-1)
+    Navigate('/')
+  } 
+  const AddU = () => {
+    Navigate('adduser')
   }
   return (
    <>
+                                                {/* Top Buttons */}
    <div style={{width:"100%", height:"80px", border:"0px solid",display:"flex",justifyContent:"center",alignItems:"center"}}>
    <div style={{width:"45%", height:"50px", border:"0px solid",display:"flex",justifyContent:"left",alignItems:"center"}}>
    <button
@@ -57,23 +61,25 @@ function Displayuser() {
           alignItems:"center",
          
         }}
-       
+       onClick={AddU}
       >
-        <Link to="adduser" style={{ textDecoration: 'none'}}> Add User</Link>
+        Add User
       </button>
       </div>
    </div>
+
+                                                   {/* Display users Heading */}
    <div style={{width:"100%",textAlign:"center", height:"60px", border:"solid 0px red"}}>
     <p style={{fontSize:"40px",fontFamily:"cursive",color:"yellow", margin:"0px", padding:"0px"}}>All Users</p>
    </div>
-
+                                                {/* user card section */}
    <div style={{border: "solid 0px", height:"100%", width:"100%", display:"flex", flexWrap:"wrap", overflow:"hidden"}}>
       {
       userlist.map((e)=>{
         return(
 
-        <div style={{border:"solid 3px yellow" , width:"300px", margin:"20px", height:"330px", borderRadius:"20px",overflow:"hidden" }}>
-        <div  className={Style.card}>
+        <div style={{border:"solid 3px yellow" , width:"300px", margin:"20px", height:"330px", borderRadius:"20px" }}>
+        <div style={{border:"solid 0px red"}} className={Style.card}>
           
           <div style={{border:"solid 0px red" , width:"190px", height:"150px",marginLeft:"50px",objectFit:"contain"}}>
           <img src={e.Image} alt="Avatar" style={{width:"100%",objectFit:"contain", height:"150px", margin:"10px 0px 0px 0px", borderRadius:"20px"}}/>
@@ -83,10 +89,10 @@ function Displayuser() {
 
           
   <div  className={Style.container}>
-    <p ><b style={{color:"yellow"}}>User Name: </b>{e.username}</p> 
-    <p><b style={{color:"yellow"}}>User City: </b>{e.usercity}</p>
-    <p><b style={{color:"yellow"}}>User Age: </b>{e.userage}</p>  
-    <p><b style={{color:"yellow"}}>Date: </b>{e.Date}</p> 
+    <p style={{width:"280px", whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}><b style={{color:"yellow"}}>User Name: </b>{e.username}</p> 
+    <p style={{width:"280px", whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}><b style={{color:"yellow"}}>User City: </b>{e.usercity}</p>
+    <p style={{width:"280px", whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}><b style={{color:"yellow"}}>User Age: </b>{e.userage}</p>  
+    <p style={{width:"280px", whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}><b style={{color:"yellow"}}>Date: </b>{e.Date}</p> 
   </div>
 </div>
 </div>

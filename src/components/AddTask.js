@@ -5,15 +5,38 @@ import { Link, useNavigate } from 'react-router-dom'
 
 function AddTask(props) {
  const [search, setSearch] = useState(false);
- const Navigate = useNavigate();
 
  const navigate = useNavigate();
  const goBack = () => {
-   navigate(-1);
+   navigate("../alltasks");
  }
   return (
-    <>
-     <button style={{marginLeft:"10px", height:"35px", width:"125px",marginTop:"10px", backgroundColor:"yellow", color:"red",fontSize:"15px", borderRadius:"25px", border:"none",  }} onClick={goBack}>Back </button>
+    <>   <div style={{width:"100%", height:"80px", border:"0px solid",display:"flex",justifyContent:"center",alignItems:"center"}}>
+    <div style={{width:"95%", height:"50px", border:"0px solid",display:"flex",justifyContent:"left",alignItems:"center"}}>
+    <button
+         style={{
+           marginLeft: "10px",
+           height: "35px",
+           width: "125px",
+           marginTop: "10px",
+           backgroundColor: "yellow",
+           color: "red",
+           fontSize: "15px",
+           borderRadius: "25px",
+           border: "none",
+           justifyContent:"center",
+           cursor:"pointer",
+           alignItems:"center",
+         }}
+         onClick={goBack}
+        
+       >
+         Back
+       </button>
+       </div>
+    </div>
+    
+     {/* <button style={{marginLeft:"10px", height:"35px", width:"125px",marginTop:"10px", backgroundColor:"yellow", color:"red",fontSize:"15px", borderRadius:"25px", border:"none",  }} onClick={goBack}>Back </button> */}
     <div style={{color:"yellow",fontSize: "60px",fontFamily:"cursive", textAlign:"center" }}>Todo App</div>
     <div style={{width:"100%", height:"90px", border: "solid 0px red", display:"flex", justifyContent:"center", alignItems:"center" }}>
       

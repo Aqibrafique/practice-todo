@@ -19,28 +19,29 @@ const getitems = () => {
   }
 };
 
-const getusers = () => {
-  let list = localStorage.getItem("Users");
-  if (list) {
-    return JSON.parse(localStorage.getItem("Users"));
-  } else {
-    return [];
-  }
-};
+// const getusers = () => {
+//   let list = localStorage.getItem("Users");
+//   if (list) {
+//     return JSON.parse(localStorage.getItem("Users"));
+//   } else {
+//     return [];
+//   }
+// };
 
 
 function App() {
   const [search, setSearch] = useState("");
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState(getitems());
-  const [adduser, setAdduser] = useState({
-    username: "",
-    usercity: "",
-    userage: "",
-  });
-  const [userlist, setUserlist] = useState(getusers());
-  const [image, setImage] = useState("");
+  // const [adduser, setAdduser] = useState({
+  //   username: "",
+  //   usercity: "",
+  //   userage: "",
+  // });
+  // const [userlist, setUserlist] = useState(getusers());
+  // const [image, setImage] = useState("");
   // const navigate = useNavigate();
+
   const AddTodo = (e) => {
     const task = {
       id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
@@ -50,8 +51,8 @@ function App() {
     };
     if (todo) {
       setTodoList([...todoList, task]);
+      alert("Task Saved")
       setTodo("");
-// navigate("alltasks")
     }
     e.preventDefault();
   };
@@ -59,43 +60,38 @@ function App() {
     localStorage.setItem("todoitems", JSON.stringify(todoList));
   }, [todoList]);
 
-  useEffect(() => {
-    localStorage.setItem("Users", JSON.stringify(userlist));
-  }, [userlist]);
+  // useEffect(() => {
+  //   localStorage.setItem("Users", JSON.stringify(userlist));
+  // }, [userlist]);
 
-
-// const navigate = useNavigate();
   
-  const HandleSubmit = (e) => {
-    e.preventDefault();
-    var today = new Date(),
-      date =
-        today.getFullYear() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate();
-    var newdata = {
-      ...adduser,
-      Date: date,
-      ID: new Date().getTime().toString(),
-      Image: image,
-    };
-    setUserlist([...userlist, newdata]);
-    // window.location.href = "/displayuser"
-    console.log(userlist);
-    setAdduser({ username: "", usercity: "", userage: "" });
-    setImage("");    
-    // navigate("displayuser")
-  };
+  // const HandleSubmit = (e) => {
+  //   e.preventDefault();
+  //   var today = new Date(),
+  //     date =
+  //       today.getFullYear() +
+  //       "-" +
+  //       (today.getMonth() + 1) +
+  //       "-" +
+  //       today.getDate();
+  //   var newdata = {
+  //     ...adduser,
+  //     Date: date,
+  //     ID: new Date().getTime().toString(),
+  //     Image: image,
+  //   };
+  //   setUserlist([...userlist, newdata]);
+  //   console.log(userlist);
+  //   setAdduser({ username: "", usercity: "", userage: "" });
+  //   setImage("");    
+  // };
 
-  console.log(image);
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Add userlist={userlist} />} />
-          <Route path="alltasks/addtask/searchtask" element={<SearchTask />} />
+          <Route index element={<Add  />} />
+          <Route path="alltasks/searchtask" element={<SearchTask />} />
 
           <Route
             path="alltasks/addtask"
@@ -103,13 +99,13 @@ function App() {
               <AddTask
                 todo={todo}
                 setTodo={setTodo}
-                AddTodo={AddTodo}
                 search={search}
                 setSearch={setSearch}
+                AddTodo={AddTodo}
               />
             }
           />
-          <Route
+          {/* <Route
             path="viewtask"
             element={
               <DisplayTodo
@@ -119,7 +115,7 @@ function App() {
                 setSearch={setSearch}
               />
             }
-          />
+          /> */}
            <Route
             path="alltasks"
             element={
@@ -135,19 +131,12 @@ function App() {
     
           <Route
             path="displayuser"
-            element={<Displayuser userlist={userlist} />}
+            element={<Displayuser  />}
           />
             <Route
               path="displayuser/adduser"
               element={
-                <Adduser
-                  adduser={adduser}
-                  userlist={userlist}
-                  setAdduser={setAdduser}
-                  HandleSubmit={HandleSubmit}
-                  image={image}
-                  setImage={setImage}
-                />
+                <Adduser/>
               }
             />
         </Routes>

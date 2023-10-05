@@ -1,16 +1,25 @@
-import React from 'react'
+import {React} from 'react'
 import DisplayAdd from "../DisplayAdd"
 import Style from "../Style.module.css";
 import { useNavigate, Link } from 'react-router-dom'
+import SearchTask from './SearchTask';
 
 function Alltasks(props) {
+
+
     const navigate = useNavigate();
   const goBack = () => {
-    navigate(-1);}
+    navigate("/");}
+
+    const SearchT = () => {
+      navigate("searchtask");}
+
+      const AddT = () => {
+        navigate("addtask");}
   return (
     <>
      <div style={{width:"100%", height:"80px", border:"0px solid",display:"flex",justifyContent:"center",alignItems:"center"}}>
-   <div style={{width:"45%", height:"50px", border:"0px solid",display:"flex",justifyContent:"left",alignItems:"center"}}>
+   <div style={{width:"33%", height:"50px", border:"0px solid",display:"flex",justifyContent:"left",alignItems:"center"}}>
    <button
         style={{
           marginLeft: "10px",
@@ -32,7 +41,29 @@ function Alltasks(props) {
         Back
       </button>
       </div>
-      <div style={{width:"45%", height:"50px", border:"0px solid",display:"flex",justifyContent:"right",alignItems:"center"}}>
+      <div style={{width:"33%", height:"50px", border:"0px solid",display:"flex",justifyContent:"center",alignItems:"center"}}>
+   <button
+        style={{
+          marginLeft: "10px",
+          height: "35px",
+          width: "125px",
+          marginTop: "10px",
+          backgroundColor: "yellow",
+          color: "red",
+          fontSize: "15px",
+          borderRadius: "25px",
+          border: "none",
+          justifyContent:"center",
+          cursor:"pointer",
+          alignItems:"center",
+        }}
+        onClick={SearchT}
+       
+      >
+        Search Tasks
+      </button>
+      </div>
+      <div style={{width:"33%", height:"50px", border:"0px solid",display:"flex",justifyContent:"right",alignItems:"center"}}>
    <button
         style={{
           marginLeft: "10px",
@@ -49,15 +80,19 @@ function Alltasks(props) {
           alignItems:"center",
          
         }}
+        onClick={AddT}
        
       >
-        <Link to="addtask" style={{ textDecoration: 'none'}}> Add Task</Link>
+        Add Tasks
       </button>
       </div>
    </div>
+
+                                                         {/* TODO HEADING */}
     <div style={{border:"solid 0px blue", width:"100%", height:"80px", fontSize:"50px", color:"yellow", textAlign:"center",fontFamily: "cursive",backgroundColor: "#3D3D3D" }}>
         Todo App
         </div>
+                                                          {/* All Tasks Div */}
     <div
       style={{
         border: "solid 0px red",
@@ -75,9 +110,9 @@ function Alltasks(props) {
           marginTop: "30px",
           border: "solid 3px yellow",
           backgroundColor: "#3D3D3D",
-          borderRadius: "25px",
-          height: "400px",
-          width: "450px",
+          borderRadius: "15px",
+          height: "300px",
+          width: "350px",
           overflow: "auto",
           display: "flex",
           justifyContent: "center",
@@ -112,15 +147,15 @@ function Alltasks(props) {
             All Tasks
           </div>
           {props.todoList
-            // .filter((e) => {
-            //   if (props.search && e.Status === "add") {
-            //     return e.todo
-            //       .toLowerCase()
-            //       .includes(props.search.toLowerCase());
-            //   } else if (e.Status === "add") {
-            //     return e;
-            //   }
-            // })
+            .filter((e) => {
+              if (props.search && e.Status === "add") {
+                return e.todo
+                  .toLowerCase()
+                  .includes(props.search.toLowerCase());
+              } else if (e.Status === "add") {
+                return e;
+              }
+            })
             .map((e) => (
               <DisplayAdd
                 todoList={props.todoList}
@@ -132,7 +167,7 @@ function Alltasks(props) {
             ))}
         </div>
       </div>
-      {/* <div
+       <div
         style={{
           marginTop: "30px",
           border: "solid 3px yellow",
@@ -193,8 +228,8 @@ function Alltasks(props) {
               />
             ))}
         </div>
-      </div> */}
-      {/* <div
+      </div> 
+       <div
         style={{
           border: "solid 3px yellow",
           backgroundColor: "#FE7F2D",
@@ -257,7 +292,7 @@ function Alltasks(props) {
               />
             ))}
         </div>
-      </div> */}
+      </div> 
     </div>
     </>
   )
