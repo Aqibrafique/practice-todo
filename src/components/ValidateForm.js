@@ -1,16 +1,18 @@
 function ValidateForm(adduser) {
   let errors = {};
   // const name_validation = /^[a-zA-Z]+$/;
-  const name_validation = "^[A-Za-z]\\w{5,29}$";
+  const name_validation = new RegExp(/^[a-zA-Z]+$/);
+  // const name_validation = "^[A-Za-z]\\w{5,29}$";
   const number_validation = /^[0-9]+$/;
   if (!adduser.username) {
     errors.username = "Name is Required!";
-  } else if (name_validation.test(adduser.username)) {
+  } else if (!name_validation.test(adduser.username)) {
     errors.username = "Name is Not Valid";
   }
-  if (adduser?.usercity === "") {
+  
+  if (adduser.usercity === "") {
     errors.usercity = "City is Required!";
-  } else if (!name_validation.test(adduser?.usercity)) {
+  } else if (!name_validation.test(adduser.usercity)) {
     errors.usercity = "City is Not Valid";
   }
   if (adduser.userage === "") {

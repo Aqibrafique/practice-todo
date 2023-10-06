@@ -21,10 +21,7 @@ function Adduser() {
   const [image, setImage] = useState("");
   const [userlist, setUserlist] = useState(getusers());
   const [errors, setErrors] = useState("");
-
-  // useEffect(() => {
-  //   localStorage.setItem("Users", JSON.stringify(userlist))
-  // }, [userlist]);
+  const [fullname, setFullname] = useState("")
 
 
   const navigate = useNavigate();
@@ -49,7 +46,8 @@ function Adduser() {
     const err = ValidateForm(newdata);
     if (err && Object.keys(err)?.length !== 0) {
       setErrors(err);
-      console.log("hello");
+      console.log(err);
+      console.log("error check is true");
       return;
     }
     setUserlist([...userlist, newdata]);
@@ -66,27 +64,78 @@ console.log("running")
   const goBack = () => {
     navigate(-1);
   };
-  const handleChange = (event) => {
-    const name = event.target.name;
+  // const handleChange = (event) => {
+  //   const name = event.target.name;
+  //   const value = event.target.value;
+
+  //   const name_validation = new RegExp(/^[a-zA-Z]+$/);
+  //                                                           // username onchange
+  //   if (!adduser.username) {
+  //     setErrors({...errors, username: "Name is Required!"})
+  //   } else if (!name_validation.test(adduser.username)) {
+  //     setErrors({...errors, username: "Name is Not Valid"})
+  //   }
+  //   else{
+  //     setErrors({...errors, username: ""})
+  //   }
+  //                                                               // username onchange
+  //   setAdduser({ ...adduser, [name]: value });
+   
+  // };
+  const nameChange = (event) => {
     const value = event.target.value;
-    setErrors({ ...errors, [name]: "" });
-    setAdduser({ ...adduser, [name]: value });
+    const name_validation = new RegExp(/^[a-zA-Z]+$/);
+    if (!value) {
+      setErrors({...errors, username: "Name is Required!"})
+    } else if (!name_validation.test(value)) {
+      setErrors({...errors, username: "Name is Not Valid"})
+    }
+    else{
+      setErrors({...errors, username: ""})
+    }
+    setAdduser({ ...adduser, username: value });
+   
+  };
+  const cityChange = (event) => {
+    const value = event.target.value;
+    const name_validation = new RegExp(/^[a-zA-Z]+$/);
+    if (!value) {
+      setErrors({...errors, usercity: "city is Required!"})
+    } else if (!name_validation.test(value)) {
+      setErrors({...errors, usercity: "city is Not Valid"})
+    }
+    else{
+      setErrors({...errors, usercity: ""})
+    }
+    setAdduser({ ...adduser, usercity: value });
+   
+  };
+  const ageChange = (event) => {
+    const value = event.target.value;
+    const age_validation = new RegExp(/^[0-9]+$/);
+    if (!value) {
+      setErrors({...errors, userage: "Age is Required!"})
+    } else if (!age_validation.test(value)) {
+      setErrors({...errors, userage: "Age is Not Valid"})
+    }
+    else{
+      setErrors({...errors, userage: ""})
+    }
+    setAdduser({ ...adduser, userage: value });
+   
   };
   const imageChange = (e) => {
     
     var file = e.target.files[0];
     // const url = URL.createObjectURL(file);
-    // console.log(file);
+    // // setImage(...image, file);
     const data = new FileReader();
     data.addEventListener('load',()=>{
       setImage(...image,data.result)
     })
     data.readAsDataURL(file)
     setErrors({ ...errors, Image: "" });
-    // // setImage(...image, file);
-
   };
-  console.log(Image)
   return (
     <>
       <div style={{width:"100%", height:"80px", border:"0px solid",display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -149,7 +198,7 @@ console.log("running")
                 value={adduser.username}
                 name="username"
                 id="username"
-                onChange={handleChange}
+                onChange={nameChange}
                 style={{
                   marginLeft: "50px",
                   width: "200px",
@@ -158,15 +207,24 @@ console.log("running")
                   border: "solid 3px yellow",
                   borderRadius: "15px",
                 }}
-                // onKeyDown={(event) => {
-                //   if (event.key === "Enter" && errors.username ==="" ) {
-                //     (
-                //       document.querySelector(
-                //         'input[id="usercity"]'
-                //       )
-                //     ).focus();
-                //   }
-                // }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !errors.username && adduser.username) { 
+                    (
+                      console.log(`if ${errors.username}`),
+                      document.querySelector(
+                        'input[id="usercity"]'
+                      )
+                    ).focus();
+                  }
+                  else{
+                    (
+                      console.log(`else ${errors.username}`),
+                      document.querySelector(
+                        'input[id="username"]'
+                      )
+                    ).focus();
+                  }
+                }}
               />
               {errors.username && (
                 <p
@@ -187,7 +245,7 @@ console.log("running")
                 value={adduser.usercity}
                 name="usercity"
                 id= "usercity"
-                onChange={handleChange}
+                onChange={cityChange}
                 style={{
                   marginLeft: "50px",
                   width: "200px",
@@ -195,6 +253,24 @@ console.log("running")
                   backgroundColor: "#126FAD",
                   border: "solid 3px yellow",
                   borderRadius: "15px",
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !errors.usercity && adduser.usercity) { 
+                    (
+                      console.log(`if ${errors.usercity}`),
+                      document.querySelector(
+                        'input[id="userage"]'
+                      )
+                    ).focus();
+                  }
+                  else{
+                    (
+                      console.log(`else ${errors.usercity}`),
+                      document.querySelector(
+                        'input[id="usercity"]'
+                      )
+                    ).focus();
+                  }
                 }}
               />
               {errors.usercity && (
@@ -215,7 +291,8 @@ console.log("running")
                 type="text"
                 value={adduser.userage}
                 name="userage"
-                onChange={handleChange}
+                id="userage"
+                onChange={ageChange}
                 style={{
                   marginLeft: "50px",
                   width: "200px",
@@ -223,6 +300,24 @@ console.log("running")
                   backgroundColor: "#126FAD",
                   border: "solid 3px yellow",
                   borderRadius: "15px",
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !errors.userage && adduser.userage) { 
+                    (
+                      console.log(`if ${errors.userage}`),
+                      document.querySelector(
+                        'input[id="userimage"]'
+                      )
+                    ).focus();
+                  }
+                  else{
+                    (
+                      console.log(`else ${errors.userage}`),
+                      document.querySelector(
+                        'input[id="userage"]'
+                      )
+                    ).focus();
+                  }
                 }}
               />
               {errors.userage && (
@@ -276,6 +371,7 @@ console.log("running")
               <input
                 type="file"
                 name="userimage"
+                id="userimage"
                 onChange={imageChange}
                 style={{ display: "none" }}
               />
@@ -296,7 +392,7 @@ console.log("running")
                 width: "125px",
                 marginTop: "10px",
                 backgroundColor: "yellow",
-                color: "red",
+                 color: "red",
                 fontSize: "15px",
                 borderRadius: "25px",
                 border: "none",
@@ -309,57 +405,6 @@ console.log("running")
           </form>
         </div>
       </div>
-      {/* <div
-        style={{
-          border: "solid 1px",
-          height: "100vh",
-          width: "100%",
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        {userlist.map((e) => {
-          const uname = `Username:   ${e.username}`;
-          return (
-            <div
-              style={{
-                border: "solid 3px yellow",
-                width: "300px",
-                margin: "20px",
-                height: "271px",
-                borderRadius: "20px",
-              }}
-            >
-              <div className={Style.card}>
-                <div
-                  style={{
-                    border: "solid 1px red",
-                    width: "90px",
-                    margin: "20px",
-                    height: "50px",
-                    marginLeft: "100px",
-                    display: "flex",
-                  }}
-                >
-                  <img
-                    src={e.Image}
-                    alt="Avatar"
-                    style={{ width: "100%", height: "50px", marginLeft: "0px" }}
-                  />
-                </div>
-                <div className={Style.container}>
-                  <h4>
-                    <b>{uname}</b>
-                  </h4>
-                  <p>{e.usercity}</p>
-                  <p>{e.userage} </p>
-                  <p>{e.Date}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div> */}
     </>
   );
 }
