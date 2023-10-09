@@ -64,27 +64,10 @@ console.log("running")
   const goBack = () => {
     navigate(-1);
   };
-  // const handleChange = (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-
-  //   const name_validation = new RegExp(/^[a-zA-Z]+$/);
-  //                                                           // username onchange
-  //   if (!adduser.username) {
-  //     setErrors({...errors, username: "Name is Required!"})
-  //   } else if (!name_validation.test(adduser.username)) {
-  //     setErrors({...errors, username: "Name is Not Valid"})
-  //   }
-  //   else{
-  //     setErrors({...errors, username: ""})
-  //   }
-  //                                                               // username onchange
-  //   setAdduser({ ...adduser, [name]: value });
-   
-  // };
   const nameChange = (event) => {
     const value = event.target.value;
-    const name_validation = new RegExp(/^[a-zA-Z]+$/);
+    const name_validation = new RegExp(/^[a-zA-Z\s._-]{3,30}$/);
+    
     if (!value) {
       setErrors({...errors, username: "Name is Required!"})
     } else if (!name_validation.test(value)) {
@@ -98,11 +81,11 @@ console.log("running")
   };
   const cityChange = (event) => {
     const value = event.target.value;
-    const name_validation = new RegExp(/^[a-zA-Z]+$/);
+    const city_validation = new RegExp(/^[a-zA-Z\s-]{2,20}$/);
     if (!value) {
-      setErrors({...errors, usercity: "city is Required!"})
-    } else if (!name_validation.test(value)) {
-      setErrors({...errors, usercity: "city is Not Valid"})
+      setErrors({...errors, usercity: "City is Required!"})
+    } else if (!city_validation.test(value)) {
+      setErrors({...errors, usercity: "City is Not Valid"})
     }
     else{
       setErrors({...errors, usercity: ""})
@@ -112,11 +95,11 @@ console.log("running")
   };
   const ageChange = (event) => {
     const value = event.target.value;
-    const age_validation = new RegExp(/^[0-9]+$/);
+    const age_validation = new RegExp(/^(?:0|[1-9]\d?|1[01]\d|120)$/);
     if (!value) {
       setErrors({...errors, userage: "Age is Required!"})
     } else if (!age_validation.test(value)) {
-      setErrors({...errors, userage: "Age is Not Valid"})
+      setErrors({...errors, userage: "Age is not valid"})
     }
     else{
       setErrors({...errors, userage: ""})
